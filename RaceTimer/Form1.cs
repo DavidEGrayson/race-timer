@@ -177,7 +177,7 @@ namespace RaceTimerApp
             uint minutes = timeMs / 1000 / 60;
             uint seconds = timeMs / 1000 % 60;
             uint millis = timeMs % 1000;
-            return String.Format("{0:00}:{1:00}.{2:000}", minutes, seconds, millis);
+            return String.Format("{0}:{1:00}.{2:000}", minutes, seconds, millis);
         }
 
         void simulateSensorMenuItem_Click(object sender, EventArgs e)

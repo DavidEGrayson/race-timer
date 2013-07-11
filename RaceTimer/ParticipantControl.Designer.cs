@@ -55,6 +55,7 @@
             this.totalTimeBox.ReadOnly = true;
             this.totalTimeBox.Size = new System.Drawing.Size(450, 62);
             this.totalTimeBox.TabIndex = 2;
+            this.totalTimeBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lapList
             // 
