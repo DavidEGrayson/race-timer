@@ -38,27 +38,32 @@ namespace RaceTimerApp
 
         void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            comPortBox.Items.Clear();
-            comPortBox.Items.Add("Not connected");
+            updateSerialPorts();
+        }
+
+        void updateSerialPorts()
+        {
+            serialPortBox.Items.Clear();
+            serialPortBox.Items.Add("Not connected");
 
             foreach (string portName in SerialPort.GetPortNames())
             {
-                comPortBox.Items.Add(portName);
+                serialPortBox.Items.Add(portName);
 
                 if (portName == raceTimer.portName)
                 {
-                    comPortBox.SelectedIndex = comPortBox.Items.Count - 1;
+                    serialPortBox.SelectedIndex = serialPortBox.Items.Count - 1;
                 }
             }
 
             if (raceTimer.portName == null)
             {
-                comPortBox.SelectedIndex = 0;
+                serialPortBox.SelectedIndex = 0;
             }
-            else if (!comPortBox.Items.Contains(raceTimer.portName))
+            else if (!serialPortBox.Items.Contains(raceTimer.portName))
             {
-                comPortBox.Items.Add(raceTimer.portName + " (gone)");
-                comPortBox.SelectedIndex = comPortBox.Items.Count - 1;
+                serialPortBox.Items.Add(raceTimer.portName + " (gone)");
+                serialPortBox.SelectedIndex = serialPortBox.Items.Count - 1;
             }
         }
 
@@ -129,6 +134,10 @@ namespace RaceTimerApp
             return (int)t.Tag;
         }
 
+        void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
     }
 }

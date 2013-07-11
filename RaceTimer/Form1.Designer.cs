@@ -28,34 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.raceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.simulateSensorAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateSensorBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.serialPortBox = new System.Windows.Forms.ToolStripComboBox();
             this.participantControlB = new RaceTimerApp.ParticipantControl();
             this.participantControlA = new RaceTimerApp.ParticipantControl();
-            this.comPortBox = new System.Windows.Forms.ToolStripComboBox();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.raceToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(941, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.comPortBox});
+            this.serialPortBox,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -102,6 +93,22 @@
             this.simulateSensorBToolStripMenuItem.Text = "Simulate Sensor B";
             this.simulateSensorBToolStripMenuItem.Click += new System.EventHandler(this.simulateSensorMenuItem_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.raceToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(941, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // serialPortBox
+            // 
+            this.serialPortBox.Name = "serialPortBox";
+            this.serialPortBox.Size = new System.Drawing.Size(121, 23);
+            // 
             // participantControlB
             // 
             this.participantControlB.Location = new System.Drawing.Point(474, 27);
@@ -116,10 +123,12 @@
             this.participantControlA.Size = new System.Drawing.Size(456, 420);
             this.participantControlA.TabIndex = 1;
             // 
-            // comPortBox
+            // exitToolStripMenuItem
             // 
-            this.comPortBox.Name = "comPortBox";
-            this.comPortBox.Size = new System.Drawing.Size(121, 23);
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -143,16 +152,17 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private ParticipantControl participantControlA;
+        private ParticipantControl participantControlB;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox serialPortBox;
         private System.Windows.Forms.ToolStripMenuItem raceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem simulateSensorAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simulateSensorBToolStripMenuItem;
-        private ParticipantControl participantControlA;
-        private ParticipantControl participantControlB;
-        private System.Windows.Forms.ToolStripComboBox comPortBox;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 
 
     }
