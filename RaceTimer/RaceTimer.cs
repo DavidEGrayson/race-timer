@@ -35,7 +35,9 @@ namespace RaceTimerApp
         Thread readThread;
         bool continueReading;
         Queue<string> portLineQueue;
-        static Regex messageRegex = new Regex(@"\A([AB]),([0-9A-Fa-f]{1,8})\Z");        
+        static Regex messageRegex = new Regex(@"\A([AB]),([0-9A-Fa-f]{1,8})\Z");
+
+        bool allTimesAreGuesses = true;
 
         public RaceTimer(int participantCount, int lapCount)
         {
@@ -78,7 +80,7 @@ namespace RaceTimerApp
                 participant.sensorTimes.Add(time);
                 notifyModelUpdated();
             }
-            logInfo(String.Format("Participant {0} sensed at time 0x{1:X}{2}", participantIndex, time, recorded ? "" : " (not recorded!)"));
+            logInfo(String.Format("Participant {0} sensed at time {1}{2}", participantIndex, time, recorded ? "" : " (not recorded!)"));
         }
 
         private void notifyModelUpdated()
@@ -94,6 +96,26 @@ namespace RaceTimerApp
         public void updateTimeEstimate(UInt32 actualTime)
         {
             stopWatchOffset = actualTime - (UInt32)stopWatch.ElapsedMilliseconds;
+
+            if (allTimesAreGuesses)
+            {
+                bool adjustedTimes = false;
+                foreach (Participant p in participants)
+                {
+                    if (p.sensorTimes.Count > 0)
+                    {
+                        adjustedTimes = true;
+                        p.sensorTimes = (from time in p.sensorTimes select time + stopWatchOffset).ToList();
+                    }
+                }
+
+                if (adjustedTimes)
+                {
+                    logInfo(String.Format("Added {0} to all previous times.", stopWatchOffset));
+                }
+
+                allTimesAreGuesses = false;
+            }
         }
 
         public UInt32 timeEstimate
@@ -189,8 +211,8 @@ namespace RaceTimerApp
                 }
 
                 UInt32 timeMs = Convert.ToUInt32(hexTime, 16);
+                updateTimeEstimate(timeMs);  // this must be done BEFORE because it might alter time measurements
                 recordTime(participantIndex, timeMs);
-                updateTimeEstimate(timeMs);
             }
         }
 
