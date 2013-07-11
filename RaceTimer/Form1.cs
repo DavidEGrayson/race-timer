@@ -139,11 +139,30 @@ namespace RaceTimerApp
                     styleTie(participantControl0);
                     styleTie(participantControl1);
                 }
+
+                UInt32 bestLapTime0 = raceTimer.participants[0].bestLapTimeAdjusted;
+                UInt32 bestLapTime1 = raceTimer.participants[1].bestLapTimeAdjusted;
+
+                if (bestLapTime0 < bestLapTime1)
+                {
+                    styleBestLapTime(participantControl0);
+                    styleNotBestLapTime(participantControl1);
+                }
+                else if (time0 > time1)
+                {
+                    styleNotBestLapTime(participantControl0);
+                    styleBestLapTime(participantControl1);
+                }
+                else
+                {
+                    styleNotBestLapTime(participantControl0);
+                    styleNotBestLapTime(participantControl1);
+                }
             }
             else
             {
-                styleUndecided(participantControl0);
-                styleUndecided(participantControl1);
+                styleNotBestLapTime(participantControl0);
+                styleNotBestLapTime(participantControl1);
             }
 
             // Do this or else we see a slight flicker for an unfinished lap when we get a sensor
@@ -169,6 +188,16 @@ namespace RaceTimerApp
         void styleTie(ParticipantControl control)
         {
             styleWin(control);
+        }
+
+        void styleBestLapTime(ParticipantControl control)
+        {
+            control.bestLapTimeBox.BackColor = Color.PaleGreen;
+        }
+
+        void styleNotBestLapTime(ParticipantControl control)
+        {
+            control.bestLapTimeBox.BackColor = SystemColors.Control;
         }
 
         void updateParticipant(int participantIndex, ParticipantControl control)
