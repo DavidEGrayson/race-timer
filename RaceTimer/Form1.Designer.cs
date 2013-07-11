@@ -35,10 +35,9 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.simulateSensorAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateSensorBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.participantControl1 = new RaceTimerApp.ParticipantControl();
-            this.containerPanel = new System.Windows.Forms.Panel();
+            this.participantControlA = new RaceTimerApp.ParticipantControl();
+            this.participantControlB = new RaceTimerApp.ParticipantControl();
             this.menuStrip1.SuspendLayout();
-            this.containerPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -48,7 +47,7 @@
             this.raceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1029, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(941, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,37 +98,36 @@
             this.simulateSensorBToolStripMenuItem.Text = "Simulate Sensor B";
             this.simulateSensorBToolStripMenuItem.Click += new System.EventHandler(this.simulateSensorMenuItem_Click);
             // 
-            // participantControl1
+            // participantControlA
             // 
-            this.participantControl1.Location = new System.Drawing.Point(65, 108);
-            this.participantControl1.Name = "participantControl1";
-            this.participantControl1.Size = new System.Drawing.Size(456, 420);
-            this.participantControl1.TabIndex = 1;
+            this.participantControlA.Location = new System.Drawing.Point(12, 27);
+            this.participantControlA.Name = "participantControlA";
+            this.participantControlA.Size = new System.Drawing.Size(456, 420);
+            this.participantControlA.TabIndex = 1;
             // 
-            // containerPanel
+            // participantControlB
             // 
-            this.containerPanel.Controls.Add(this.participantControl1);
-            this.containerPanel.Controls.Add(this.menuStrip1);
-            this.containerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.containerPanel.Location = new System.Drawing.Point(0, 0);
-            this.containerPanel.Name = "containerPanel";
-            this.containerPanel.Size = new System.Drawing.Size(1029, 570);
-            this.containerPanel.TabIndex = 2;
+            this.participantControlB.Location = new System.Drawing.Point(474, 27);
+            this.participantControlB.Name = "participantControlB";
+            this.participantControlB.Size = new System.Drawing.Size(456, 420);
+            this.participantControlB.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 570);
-            this.Controls.Add(this.containerPanel);
+            this.ClientSize = new System.Drawing.Size(941, 470);
+            this.Controls.Add(this.participantControlB);
+            this.Controls.Add(this.participantControlA);
+            this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Race Timer";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.containerPanel.ResumeLayout(false);
-            this.containerPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -142,8 +140,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem simulateSensorAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simulateSensorBToolStripMenuItem;
-        private ParticipantControl participantControl1;
-        private System.Windows.Forms.Panel containerPanel;
+        private ParticipantControl participantControlA;
+        private ParticipantControl participantControlB;
 
 
     }

@@ -20,11 +20,11 @@ namespace RaceTimerApp
         /// </summary>
         UInt32 stopWatchOffset = 0;
 
-        List<Participant> participants;
+        public readonly List<Participant> participants;
 
         public event EventHandler modelUpdated;
 
-        int lapCount;
+        public readonly int lapCount;
 
         public RaceTimer(int participantCount, int lapCount)
         {
@@ -33,7 +33,9 @@ namespace RaceTimerApp
             participants = new List<Participant>();
             for (int i = 0; i < participantCount; i++)
             {
-                participants.Add(new Participant());
+                var p = new Participant();
+                p.raceTimer = this;
+                participants.Add(p);
             }
 
             stopWatch.Start();
@@ -55,6 +57,11 @@ namespace RaceTimerApp
             modelUpdated.Invoke(this, null);
         }
 
+        public Participant getParticipant(int participantIndex)
+        {
+            return participants[participantIndex];
+        }
+
         public void updateTimeEstimate(UInt32 actualTime)
         {
             stopWatchOffset = actualTime - (UInt32)stopWatch.ElapsedMilliseconds;
@@ -67,11 +74,56 @@ namespace RaceTimerApp
                  return (UInt32)stopWatch.ElapsedMilliseconds + stopWatchOffset;
             }
         }
+
+
     }
 
     class Participant
     {
+        public RaceTimer raceTimer;
+
         public List<UInt32> sensorTimes = new List<UInt32>();
         public bool finished = false;
+
+        public List<Lap> getLaps()
+        {
+            var list = new List<Lap>();
+            if (sensorTimes.Count == 0)
+            {
+                // No lap even started yet.
+                return list;
+            }
+
+            int i;
+            for (i = 1; i < sensorTimes.Count; i++)
+            {
+                list.Add(new Lap(sensorTimes[i] - sensorTimes[i - 1]));
+            }
+
+            if (i <= raceTimer.lapCount)
+            {
+                // Add the unfinished lap.
+                list.Add(new Lap());
+            }
+
+            return list;
+        }
+
+    }
+
+    class Lap
+    {
+        public bool finished = false;
+        public UInt32 timeMs = 0;
+
+        public Lap(UInt32 timeMs)
+        {
+            this.timeMs = timeMs;
+            finished = true;
+        }
+
+        public Lap()
+        {
+        }
     }
 }

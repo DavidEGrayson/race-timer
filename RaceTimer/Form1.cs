@@ -32,8 +32,28 @@ namespace RaceTimerApp
 
         void modelUpdated(object sender, EventArgs e)
         {
-            MessageBox.Show("ok the model was updated, so what?");
+            updateParticipant(0, participantControlA);
+            updateParticipant(1, participantControlB);
         }
+
+        private void updateParticipant(int participantIndex, ParticipantControl control)
+        {
+            Participant participant = raceTimer.getParticipant(participantIndex);
+            control.lapList.Items.Clear();
+            var items = new List<ListViewItem>();
+            var laps = participant.getLaps();
+            for(int i = 0; i < laps.Count; i++)
+            {
+                Lap lap = laps[i];
+
+                UInt32 time = lap.timeMs;
+
+                var item = new ListViewItem(new string[] { (i + 1).ToString(), time.ToString() });
+                items.Add(item);
+            }
+            control.lapList.Items.AddRange(items.ToArray());
+        }
+
 
         private void simulateSensorMenuItem_Click(object sender, EventArgs e)
         {

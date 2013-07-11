@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.nameBox = new System.Windows.Forms.TextBox();
+            this.totalTimeBox = new System.Windows.Forms.TextBox();
+            this.lapList = new System.Windows.Forms.ListView();
+            this.lapColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.timeColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // nameBox
@@ -41,10 +45,49 @@
             this.nameBox.Size = new System.Drawing.Size(450, 62);
             this.nameBox.TabIndex = 0;
             // 
+            // totalTimeBox
+            // 
+            this.totalTimeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalTimeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTimeBox.Location = new System.Drawing.Point(3, 355);
+            this.totalTimeBox.Name = "totalTimeBox";
+            this.totalTimeBox.ReadOnly = true;
+            this.totalTimeBox.Size = new System.Drawing.Size(450, 62);
+            this.totalTimeBox.TabIndex = 2;
+            // 
+            // lapList
+            // 
+            this.lapList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lapList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lapColumn,
+            this.timeColumn});
+            this.lapList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lapList.Location = new System.Drawing.Point(3, 71);
+            this.lapList.Name = "lapList";
+            this.lapList.Size = new System.Drawing.Size(450, 278);
+            this.lapList.TabIndex = 3;
+            this.lapList.UseCompatibleStateImageBehavior = false;
+            this.lapList.View = System.Windows.Forms.View.Details;
+            // 
+            // lapColumn
+            // 
+            this.lapColumn.Text = "#";
+            // 
+            // timeColumn
+            // 
+            this.timeColumn.Text = "Time";
+            this.timeColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.timeColumn.Width = 340;
+            // 
             // ParticipantControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lapList);
+            this.Controls.Add(this.totalTimeBox);
             this.Controls.Add(this.nameBox);
             this.Name = "ParticipantControl";
             this.Size = new System.Drawing.Size(456, 420);
@@ -55,6 +98,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox nameBox;
+        public System.Windows.Forms.TextBox totalTimeBox;
+        public System.Windows.Forms.TextBox nameBox;
+        private System.Windows.Forms.ColumnHeader lapColumn;
+        private System.Windows.Forms.ColumnHeader timeColumn;
+        public System.Windows.Forms.ListView lapList;
+
     }
 }
