@@ -61,9 +61,15 @@ namespace RaceTimerApp
 
         public void recordTime(int participantIndex, UInt32 time)
         {
-            participants[participantIndex].sensorTimes.Add(time);
-            notifyModelUpdated();
-            logInfo(String.Format("Participant {0} sensed at time 0x{1:X}", participantIndex, time));
+            Participant participant = participants[participantIndex];
+            bool recorded = false;
+            if (!participant.finished)
+            {
+                recorded = true;
+                participant.sensorTimes.Add(time);
+                notifyModelUpdated();
+            }
+            logInfo(String.Format("Participant {0} sensed at time 0x{1:X}{2}", participantIndex, time, recorded ? "" : " (not recorded!)"));
         }
 
         private void notifyModelUpdated()

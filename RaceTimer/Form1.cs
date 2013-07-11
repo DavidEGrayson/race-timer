@@ -19,6 +19,7 @@ namespace RaceTimerApp
         public Form1()
         {
             InitializeComponent();
+            Icon = RaceTimerApp.Properties.Resources.racecar_from_pifmgr28;
 
             raceTimer = new RaceTimer(participantCount: 2, lapCount: 3);
             raceTimer.modelUpdated += modelUpdated;

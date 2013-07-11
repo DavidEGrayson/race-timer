@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialPortBox = new System.Windows.Forms.ToolStripComboBox();
+            this.startLoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.raceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,7 +39,6 @@
             this.simulateSensorAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateSensorBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.startLoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantControl1 = new RaceTimerApp.ParticipantControl();
             this.participantControl0 = new RaceTimerApp.ParticipantControl();
             this.menuStrip1.SuspendLayout();
@@ -58,6 +59,14 @@
             // 
             this.serialPortBox.Name = "serialPortBox";
             this.serialPortBox.Size = new System.Drawing.Size(121, 23);
+            // 
+            // startLoggingToolStripMenuItem
+            // 
+            this.startLoggingToolStripMenuItem.Name = "startLoggingToolStripMenuItem";
+            this.startLoggingToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.startLoggingToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.startLoggingToolStripMenuItem.Text = "Start Logging";
+            this.startLoggingToolStripMenuItem.Click += new System.EventHandler(this.startLoggingToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -118,14 +127,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(941, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // startLoggingToolStripMenuItem
-            // 
-            this.startLoggingToolStripMenuItem.Name = "startLoggingToolStripMenuItem";
-            this.startLoggingToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.startLoggingToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.startLoggingToolStripMenuItem.Text = "Start Logging";
-            this.startLoggingToolStripMenuItem.Click += new System.EventHandler(this.startLoggingToolStripMenuItem_Click);
             // 
             // participantControl1
             // 
