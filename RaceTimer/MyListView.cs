@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RaceTimerApp
 {
-    class MyListView : System.Windows.Forms.ListView
+    public class MyListView : System.Windows.Forms.ListView
     {
         public MyListView()
         {
