@@ -39,6 +39,10 @@ namespace RaceTimerApp
 
         bool allTimesAreGuesses = true;
 
+        public delegate UInt32 TimeAdjuster(UInt32 time);
+
+        public TimeAdjuster timeAdjuster = t => t;
+
         public RaceTimer(int participantCount, int lapCount)
         {
             this.lapCount = lapCount;
@@ -54,6 +58,7 @@ namespace RaceTimerApp
             stopWatch.Start();
 
             portLineQueue = new Queue<string>(4);
+
         }
 
         public void simulateAllSensors()
@@ -291,7 +296,7 @@ namespace RaceTimerApp
             }
         }
 
-        public UInt32? totalTime
+        public UInt32? totalTimeAdjusted
         {
             get
             {
@@ -299,7 +304,7 @@ namespace RaceTimerApp
 
                 if (finished)
                 {
-                    return sensorTimes[sensorTimes.Count - 1] - sensorTimes[0];
+                    return raceTimer.timeAdjuster(sensorTimes[sensorTimes.Count - 1] - sensorTimes[0]);
                 }
                 else
                 {
@@ -309,13 +314,13 @@ namespace RaceTimerApp
         }
 
 
-        public UInt32 averageLapTime
+        public UInt32 averageLapTimeAdjusted
         {
             get
             {
                 if (sensorTimes.Count >= 2)
                 {
-                    return totalTime.Value / ((UInt32)sensorTimes.Count - 1);
+                    return totalTimeAdjusted.Value / ((UInt32)sensorTimes.Count - 1);
                 }
                 else
                 {
@@ -328,7 +333,7 @@ namespace RaceTimerApp
     class Lap
     {
         public readonly bool finished = false;
-        public readonly UInt32 totalTimeMs = 0;
+        private readonly UInt32 totalTimeMs = 0;
 
         RaceTimer raceTimer;
         UInt32 startTime;
@@ -351,6 +356,14 @@ namespace RaceTimerApp
         public UInt32 partialTimeMs()
         {
             return raceTimer.timeEstimate - startTime;
+        }
+
+        public UInt32 totalTimeMsAdjusted
+        {
+            get
+            {
+                return raceTimer.timeAdjuster(totalTimeMs);
+            }
         }
     }
 }
