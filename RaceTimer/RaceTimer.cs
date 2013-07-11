@@ -75,7 +75,6 @@ namespace RaceTimerApp
             }
         }
 
-
     }
 
     class Participant
@@ -83,7 +82,6 @@ namespace RaceTimerApp
         public RaceTimer raceTimer;
 
         public List<UInt32> sensorTimes = new List<UInt32>();
-        public bool finished = false;
 
         public List<Lap> getLaps()
         {
@@ -107,6 +105,36 @@ namespace RaceTimerApp
             }
 
             return list;
+        }
+
+        public bool finished
+        {
+            get
+            {
+                return sensorTimes.Count > raceTimer.lapCount;
+            }
+        }
+
+        public bool started
+        {
+            get
+            {
+                return sensorTimes.Count != 0;
+            }
+        }
+
+        public uint? totalTime()
+        {
+            if (!started) { return null; }
+
+            if (finished)
+            {
+                return sensorTimes[sensorTimes.Count - 1] - sensorTimes[0];
+            }
+            else
+            {
+                return raceTimer.timeEstimate - sensorTimes[0];
+            }
         }
 
     }

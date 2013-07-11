@@ -35,8 +35,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.simulateSensorAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulateSensorBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.participantControlA = new RaceTimerApp.ParticipantControl();
             this.participantControlB = new RaceTimerApp.ParticipantControl();
+            this.participantControlA = new RaceTimerApp.ParticipantControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,19 +98,19 @@
             this.simulateSensorBToolStripMenuItem.Text = "Simulate Sensor B";
             this.simulateSensorBToolStripMenuItem.Click += new System.EventHandler(this.simulateSensorMenuItem_Click);
             // 
-            // participantControlA
-            // 
-            this.participantControlA.Location = new System.Drawing.Point(12, 27);
-            this.participantControlA.Name = "participantControlA";
-            this.participantControlA.Size = new System.Drawing.Size(456, 420);
-            this.participantControlA.TabIndex = 1;
-            // 
             // participantControlB
             // 
             this.participantControlB.Location = new System.Drawing.Point(474, 27);
             this.participantControlB.Name = "participantControlB";
             this.participantControlB.Size = new System.Drawing.Size(456, 420);
             this.participantControlB.TabIndex = 2;
+            // 
+            // participantControlA
+            // 
+            this.participantControlA.Location = new System.Drawing.Point(12, 27);
+            this.participantControlA.Name = "participantControlA";
+            this.participantControlA.Size = new System.Drawing.Size(456, 420);
+            this.participantControlA.TabIndex = 1;
             // 
             // Form1
             // 
@@ -124,6 +124,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Race Timer";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

@@ -12,6 +12,9 @@ namespace RaceTimerApp
 {
     public partial class Form1 : Form
     {
+        RaceTimer raceTimer;
+        System.Windows.Forms.Timer timer;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,14 +24,23 @@ namespace RaceTimerApp
 
             simulateSensorAToolStripMenuItem.Tag = 0;
             simulateSensorBToolStripMenuItem.Tag = 1;
+
+            timer = new Timer();
         }
 
-        RaceTimer raceTimer;
-
-        private void containerPanel_ControlAdded(object sender, ControlEventArgs e)
+        void Form1_Load(object sender, EventArgs e)
         {
-
+            timer.Interval = 40;
+            timer.Start();
+            timer.Tick += timer_Tick;
         }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            updateParticipantTickingTimes(0, participantControlA);
+            updateParticipantTickingTimes(1, participantControlB);
+        }
+
 
         void modelUpdated(object sender, EventArgs e)
         {
@@ -54,6 +66,21 @@ namespace RaceTimerApp
             control.lapList.Items.AddRange(items.ToArray());
         }
 
+        private void updateParticipantTickingTimes(int participantIndex, ParticipantControl control)
+        {
+            Participant participant = raceTimer.getParticipant(participantIndex);
+            UInt32? t = participant.totalTime();
+
+            if (t == null)
+            {
+                control.totalTimeBox.Text = "";
+            }
+            else
+            {
+                control.totalTimeBox.Text = t.Value.ToString();
+            }
+
+        }
 
         private void simulateSensorMenuItem_Click(object sender, EventArgs e)
         {
