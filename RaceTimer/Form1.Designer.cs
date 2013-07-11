@@ -72,19 +72,19 @@
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(211, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 22);
             this.toolStripMenuItem1.Text = "New Race";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(208, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(210, 6);
             // 
             // simulateSensorAToolStripMenuItem
             // 
             this.simulateSensorAToolStripMenuItem.Name = "simulateSensorAToolStripMenuItem";
-            this.simulateSensorAToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.simulateSensorAToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.simulateSensorAToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.simulateSensorAToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.simulateSensorAToolStripMenuItem.Tag = "0";
             this.simulateSensorAToolStripMenuItem.Text = "Simulate Sensor A";
             this.simulateSensorAToolStripMenuItem.Click += new System.EventHandler(this.simulateSensorMenuItem_Click);
@@ -92,8 +92,8 @@
             // simulateSensorBToolStripMenuItem
             // 
             this.simulateSensorBToolStripMenuItem.Name = "simulateSensorBToolStripMenuItem";
-            this.simulateSensorBToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.simulateSensorBToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.simulateSensorBToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.simulateSensorBToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.simulateSensorBToolStripMenuItem.Tag = "1";
             this.simulateSensorBToolStripMenuItem.Text = "Simulate Sensor B";
             this.simulateSensorBToolStripMenuItem.Click += new System.EventHandler(this.simulateSensorMenuItem_Click);
