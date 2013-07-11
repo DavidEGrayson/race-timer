@@ -48,7 +48,7 @@ namespace RaceTimerApp
             updateParticipant(1, participantControlB);
         }
 
-        private void updateParticipant(int participantIndex, ParticipantControl control)
+        void updateParticipant(int participantIndex, ParticipantControl control)
         {
             Participant participant = raceTimer.getParticipant(participantIndex);
             control.lapList.Items.Clear();
@@ -60,13 +60,13 @@ namespace RaceTimerApp
 
                 UInt32 time = lap.timeMs;
 
-                var item = new ListViewItem(new string[] { (i + 1).ToString(), time.ToString() });
+                var item = new ListViewItem(new string[] { (i + 1).ToString(), formatTime(time) });
                 items.Add(item);
             }
             control.lapList.Items.AddRange(items.ToArray());
         }
 
-        private void updateParticipantTickingTimes(int participantIndex, ParticipantControl control)
+        void updateParticipantTickingTimes(int participantIndex, ParticipantControl control)
         {
             Participant participant = raceTimer.getParticipant(participantIndex);
             UInt32? t = participant.totalTime();
@@ -77,12 +77,20 @@ namespace RaceTimerApp
             }
             else
             {
-                control.totalTimeBox.Text = t.Value.ToString();
+                control.totalTimeBox.Text = formatTime(t.Value);
             }
 
         }
 
-        private void simulateSensorMenuItem_Click(object sender, EventArgs e)
+        string formatTime(UInt32 timeMs)
+        {
+            uint minutes = timeMs / 1000 / 60;
+            uint seconds = timeMs / 1000 % 60;
+            uint millis = timeMs % 1000;
+            return String.Format("{0:00}:{1:00}.{2:000}", minutes, seconds, millis);
+        }
+
+        void simulateSensorMenuItem_Click(object sender, EventArgs e)
         {
             raceTimer.simulateSensor(determineParticipantIndex(sender));
         }

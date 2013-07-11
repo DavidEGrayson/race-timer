@@ -68,7 +68,7 @@
             this.lapList.Location = new System.Drawing.Point(3, 71);
             this.lapList.Name = "lapList";
             this.lapList.Size = new System.Drawing.Size(450, 278);
-            this.lapList.TabIndex = 3;
+            this.lapList.TabIndex = 1;
             this.lapList.UseCompatibleStateImageBehavior = false;
             this.lapList.View = System.Windows.Forms.View.Details;
             // 
