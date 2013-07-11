@@ -153,7 +153,7 @@ namespace RaceTimerApp
 
         void styleUndecided(ParticipantControl control)
         {
-            control.averageTimeBox.BackColor = control.totalTimeBox.BackColor = SystemColors.Control;
+            control.totalTimeBox.BackColor = SystemColors.Control;
         }
 
         void styleLoss(ParticipantControl control)
@@ -163,7 +163,7 @@ namespace RaceTimerApp
 
         void styleWin(ParticipantControl control)
         {
-            control.averageTimeBox.BackColor = control.totalTimeBox.BackColor = Color.PaleGreen;
+            control.totalTimeBox.BackColor = Color.PaleGreen;
         }
 
         void styleTie(ParticipantControl control)
@@ -191,11 +191,11 @@ namespace RaceTimerApp
 
             if (participant.finished)
             {
-                control.averageTimeBox.Text = formatTime(participant.averageLapTimeAdjusted);
+                control.bestLapTimeBox.Text = formatTime(participant.bestLapTimeAdjusted);
             }
             else
             {
-                control.averageTimeBox.Text = "";
+                control.bestLapTimeBox.Text = "";
             }
         }
 

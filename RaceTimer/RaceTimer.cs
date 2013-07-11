@@ -359,6 +359,21 @@ namespace RaceTimerApp
                 }
             }
         }
+
+        public UInt32 bestLapTimeAdjusted
+        {
+            get
+            {
+                if (sensorTimes.Count >= 2)
+                {
+                    return (from l in getLaps() where l.finished select l.totalTimeMsAdjusted).Min();
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
     }
 
     class Lap
