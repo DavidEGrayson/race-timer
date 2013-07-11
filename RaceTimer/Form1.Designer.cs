@@ -37,6 +37,7 @@
             this.simulateSensorBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.participantControlB = new RaceTimerApp.ParticipantControl();
             this.participantControlA = new RaceTimerApp.ParticipantControl();
+            this.comPortBox = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,9 +54,12 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.comPortBox});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
+            this.fileToolStripMenuItem.DropDownOpening += new System.EventHandler(this.fileToolStripMenuItem_DropDownOpening);
             // 
             // raceToolStripMenuItem
             // 
@@ -112,6 +116,11 @@
             this.participantControlA.Size = new System.Drawing.Size(456, 420);
             this.participantControlA.TabIndex = 1;
             // 
+            // comPortBox
+            // 
+            this.comPortBox.Name = "comPortBox";
+            this.comPortBox.Size = new System.Drawing.Size(121, 23);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,6 +152,7 @@
         private System.Windows.Forms.ToolStripMenuItem simulateSensorBToolStripMenuItem;
         private ParticipantControl participantControlA;
         private ParticipantControl participantControlB;
+        private System.Windows.Forms.ToolStripComboBox comPortBox;
 
 
     }

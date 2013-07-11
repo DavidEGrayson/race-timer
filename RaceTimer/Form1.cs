@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.Ports;
 
 namespace RaceTimerApp
 {
@@ -35,8 +36,35 @@ namespace RaceTimerApp
             timer.Tick += timer_Tick;
         }
 
+        void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            comPortBox.Items.Clear();
+            comPortBox.Items.Add("Not connected");
+
+            foreach (string portName in SerialPort.GetPortNames())
+            {
+                comPortBox.Items.Add(portName);
+
+                if (portName == raceTimer.portName)
+                {
+                    comPortBox.SelectedIndex = comPortBox.Items.Count - 1;
+                }
+            }
+
+            if (raceTimer.portName == null)
+            {
+                comPortBox.SelectedIndex = 0;
+            }
+            else if (!comPortBox.Items.Contains(raceTimer.portName))
+            {
+                comPortBox.Items.Add(raceTimer.portName + " (gone)");
+                comPortBox.SelectedIndex = comPortBox.Items.Count - 1;
+            }
+        }
+
         void timer_Tick(object sender, EventArgs e)
         {
+            raceTimer.handleSerialPortMessages();
             updateParticipantTickingTimes(0, participantControlA);
             updateParticipantTickingTimes(1, participantControlB);
         }
@@ -100,6 +128,7 @@ namespace RaceTimerApp
             var t = (ToolStripItem)o;
             return (int)t.Tag;
         }
+
 
     }
 }

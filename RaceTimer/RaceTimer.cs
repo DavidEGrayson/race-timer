@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO.Ports;
+using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace RaceTimerApp
 {
@@ -26,6 +29,12 @@ namespace RaceTimerApp
 
         public readonly int lapCount;
 
+        SerialPort port;
+        Thread readThread;
+        bool continueReading;
+        Queue<string> portLineQueue;
+        static Regex messageRegex = new Regex(@"\A([ab]),([0-9A-Fa-f]{1,8})\Z");        
+
         public RaceTimer(int participantCount, int lapCount)
         {
             this.lapCount = lapCount;
@@ -39,6 +48,8 @@ namespace RaceTimerApp
             }
 
             stopWatch.Start();
+
+            portLineQueue = new Queue<string>(4);
         }
 
         public void simulateSensor(int participantIndex)
@@ -72,6 +83,92 @@ namespace RaceTimerApp
             get
             {
                  return (UInt32)stopWatch.ElapsedMilliseconds + stopWatchOffset;
+            }
+        }
+
+        public string portName
+        {
+            get
+            {
+                return port == null ? null : port.PortName;
+            }
+        }
+
+        public void setPort(string portName)
+        {
+            if (port != null)
+            {
+                continueReading = true;
+                readThread.Join();
+                port.Close();
+                port = null;
+            }
+
+            if (portName == null)
+            {
+                return;
+            }
+
+            port = new SerialPort(portName);
+            port.ReadTimeout = 200;
+            port.WriteTimeout = 200;
+            port.Open();
+            continueReading = true;
+        }
+
+        void readPort()
+        {
+            while (continueReading)
+            {
+                try
+                {
+                    string line = port.ReadLine();
+                    portLineQueue.Enqueue(line);
+                }
+                catch (TimeoutException) { }
+            }
+        }
+
+        public void handleSerialPortMessages()
+        {
+            while (portLineQueue.Count != 0)
+            {
+                string line = portLineQueue.Dequeue();
+                handleSerialPortLine(line);
+            }
+        }
+
+        void handleSerialPortLine(string line)
+        {
+            // TODO: log the line to our log file
+
+            Match match = messageRegex.Match(line);
+            if (match == null || match.Captures.Count != 2)
+            {
+                // Not recognized!
+            }
+            else
+            {
+                string participantName = match.Captures[0].Value;
+                string hexTime = match.Captures[0].Value;
+                int participantIndex;
+                if (participantName == "a")
+                {
+                    participantIndex = 0;
+                }
+                else if (participantName == "b")
+                {
+                    participantIndex = 1;
+                }
+                else
+                {
+                    // This should NEVER happen because of the regex.
+                    throw new FormatException("Unexpected error processing line from serial port: " + line);
+                }
+
+                UInt32 timeMs = Convert.ToUInt32(hexTime, 16);
+                recordTime(participantIndex, timeMs);
+                updateTimeEstimate(timeMs);
             }
         }
 
