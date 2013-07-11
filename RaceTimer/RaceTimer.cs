@@ -172,6 +172,15 @@ namespace RaceTimerApp
             }
         }
 
+        public void newRace()
+        {
+            foreach (Participant participant in participants)
+            {
+                participant.sensorTimes.Clear();
+            }
+
+            notifyModelUpdated();
+        }
     }
 
     class Participant

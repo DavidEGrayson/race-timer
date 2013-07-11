@@ -70,15 +70,62 @@ namespace RaceTimerApp
         void timer_Tick(object sender, EventArgs e)
         {
             raceTimer.handleSerialPortLines();
-            updateParticipantTickingTimes(0, participantControlA);
-            updateParticipantTickingTimes(1, participantControlB);
+            updateParticipantTickingTimes(0, participantControl0);
+            updateParticipantTickingTimes(1, participantControl1);
         }
 
 
         void modelUpdated(object sender, EventArgs e)
         {
-            updateParticipant(0, participantControlA);
-            updateParticipant(1, participantControlB);
+            updateParticipant(0, participantControl0);
+            updateParticipant(1, participantControl1);
+
+            if (raceTimer.participants.All(p => p.finished))
+            {
+                UInt32 time0 = raceTimer.participants[0].totalTime().Value;
+                UInt32 time1 = raceTimer.participants[1].totalTime().Value;
+
+                if (time0 < time1)
+                {
+                    styleWin(participantControl0);
+                    styleLoss(participantControl1);
+                }
+                else if (time0 > time1)
+                {
+                    styleLoss(participantControl0);
+                    styleWin(participantControl1);
+                }
+                else
+                {
+                    styleTie(participantControl0);
+                    styleTie(participantControl1);
+                }
+            }
+            else
+            {
+                styleUndecided(participantControl0);
+                styleUndecided(participantControl1);
+            }
+        }
+
+        void styleUndecided(ParticipantControl control)
+        {
+            control.totalTimeBox.BackColor = SystemColors.Control;
+        }
+
+        void styleLoss(ParticipantControl control)
+        {
+            styleUndecided(control);
+        }
+
+        void styleWin(ParticipantControl control)
+        {
+            control.totalTimeBox.BackColor = Color.PaleGreen;
+        }
+
+        void styleTie(ParticipantControl control)
+        {
+            control.totalTimeBox.BackColor = Color.Yellow;
         }
 
         void updateParticipant(int participantIndex, ParticipantControl control)
@@ -144,10 +191,16 @@ namespace RaceTimerApp
             return (int)t.Tag;
         }
 
+        void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            raceTimer.newRace();
+        }
+
         void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
 
     }
 }

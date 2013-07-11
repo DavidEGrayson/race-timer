@@ -76,12 +76,13 @@
             // lapColumn
             // 
             this.lapColumn.Text = "#";
+            this.lapColumn.Width = 100;
             // 
             // timeColumn
             // 
             this.timeColumn.Text = "Time";
             this.timeColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.timeColumn.Width = 340;
+            this.timeColumn.Width = 300;
             // 
             // ParticipantControl
             // 

@@ -36,9 +36,9 @@
             this.simulateSensorBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.serialPortBox = new System.Windows.Forms.ToolStripComboBox();
-            this.participantControlB = new RaceTimerApp.ParticipantControl();
-            this.participantControlA = new RaceTimerApp.ParticipantControl();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.participantControl1 = new RaceTimerApp.ParticipantControl();
+            this.participantControl0 = new RaceTimerApp.ParticipantControl();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,6 +69,7 @@
             this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 22);
             this.toolStripMenuItem1.Text = "New Race";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator1
             // 
@@ -109,20 +110,6 @@
             this.serialPortBox.Name = "serialPortBox";
             this.serialPortBox.Size = new System.Drawing.Size(121, 23);
             // 
-            // participantControlB
-            // 
-            this.participantControlB.Location = new System.Drawing.Point(474, 27);
-            this.participantControlB.Name = "participantControlB";
-            this.participantControlB.Size = new System.Drawing.Size(456, 420);
-            this.participantControlB.TabIndex = 2;
-            // 
-            // participantControlA
-            // 
-            this.participantControlA.Location = new System.Drawing.Point(12, 27);
-            this.participantControlA.Name = "participantControlA";
-            this.participantControlA.Size = new System.Drawing.Size(456, 420);
-            this.participantControlA.TabIndex = 1;
-            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -130,13 +117,27 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // participantControlB
+            // 
+            this.participantControl1.Location = new System.Drawing.Point(474, 27);
+            this.participantControl1.Name = "participantControlB";
+            this.participantControl1.Size = new System.Drawing.Size(456, 420);
+            this.participantControl1.TabIndex = 2;
+            // 
+            // participantControlA
+            // 
+            this.participantControl0.Location = new System.Drawing.Point(12, 27);
+            this.participantControl0.Name = "participantControlA";
+            this.participantControl0.Size = new System.Drawing.Size(456, 420);
+            this.participantControl0.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(941, 470);
-            this.Controls.Add(this.participantControlB);
-            this.Controls.Add(this.participantControlA);
+            this.Controls.Add(this.participantControl1);
+            this.Controls.Add(this.participantControl0);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
@@ -152,8 +153,8 @@
 
         #endregion
 
-        private ParticipantControl participantControlA;
-        private ParticipantControl participantControlB;
+        private ParticipantControl participantControl0;
+        private ParticipantControl participantControl1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox serialPortBox;
         private System.Windows.Forms.ToolStripMenuItem raceToolStripMenuItem;
