@@ -192,13 +192,13 @@ namespace RaceTimerApp
             int i;
             for (i = 1; i < sensorTimes.Count; i++)
             {
-                list.Add(new Lap(sensorTimes[i] - sensorTimes[i - 1]));
+                list.Add(new Lap(raceTimer, sensorTimes[i - 1], sensorTimes[i] - sensorTimes[i - 1]));
             }
 
             if (i <= raceTimer.lapCount)
             {
                 // Add the unfinished lap.
-                list.Add(new Lap());
+                list.Add(new Lap(raceTimer, sensorTimes[i - 1]));
             }
 
             return list;
@@ -238,17 +238,30 @@ namespace RaceTimerApp
 
     class Lap
     {
-        public bool finished = false;
-        public UInt32 timeMs = 0;
+        public readonly bool finished = false;
+        public readonly UInt32 totalTimeMs = 0;
 
-        public Lap(UInt32 timeMs)
+        RaceTimer raceTimer;
+        UInt32 startTime;
+
+        public Lap(RaceTimer raceTimer, UInt32 startTime, UInt32 totalTimeMs)
         {
-            this.timeMs = timeMs;
             finished = true;
+            this.raceTimer = raceTimer;
+            this.startTime = startTime;
+            this.totalTimeMs = totalTimeMs;
         }
 
-        public Lap()
+        public Lap(RaceTimer raceTimer, UInt32 startTime)
         {
+            finished = false;
+            this.raceTimer = raceTimer;
+            this.startTime = startTime;
+        }
+
+        public UInt32 partialTimeMs()
+        {
+            return raceTimer.timeEstimate - startTime;
         }
     }
 }

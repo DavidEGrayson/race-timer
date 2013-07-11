@@ -91,9 +91,10 @@ namespace RaceTimerApp
             {
                 Lap lap = laps[i];
 
-                UInt32 time = lap.timeMs;
+                UInt32 time = lap.totalTimeMs;
 
                 var item = new ListViewItem(new string[] { (i + 1).ToString(), formatTime(time) });
+                item.Tag = lap;
                 items.Add(item);
             }
             control.lapList.Items.AddRange(items.ToArray());
@@ -111,6 +112,15 @@ namespace RaceTimerApp
             else
             {
                 control.totalTimeBox.Text = formatTime(t.Value);
+            }
+
+            foreach (ListViewItem item in control.lapList.Items)
+            {
+                Lap lap = (Lap)item.Tag;
+                if (!lap.finished)
+                {
+                    item.SubItems[1].Text = formatTime(lap.partialTimeMs());
+                }
             }
 
         }
