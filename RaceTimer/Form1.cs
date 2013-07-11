@@ -32,6 +32,9 @@ namespace RaceTimerApp
             simulateSensorBToolStripMenuItem.Tag = 1;
 
             timer = new Timer();
+
+            participantControl0.nameBox.TextChanged += delegate(object s, EventArgs e) { raceTimer.participants[0].name = participantControl0.nameBox.Text; };
+            participantControl1.nameBox.TextChanged += delegate(object s, EventArgs e) { raceTimer.participants[1].name = participantControl1.nameBox.Text; };
         }
 
         void Form1_Load(object sender, EventArgs e)
@@ -223,10 +226,7 @@ namespace RaceTimerApp
 
         string formatTime(UInt32 timeMs)
         {
-            uint minutes = timeMs / 1000 / 60;
-            uint seconds = timeMs / 1000 % 60;
-            uint millis = timeMs % 1000;
-            return String.Format("{0}:{1:00}.{2:000}", minutes, seconds, millis);
+            return RaceTimer.formatTime(timeMs);
         }
 
         void simulateSensorMenuItem_Click(object sender, EventArgs e)

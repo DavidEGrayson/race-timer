@@ -43,6 +43,8 @@ namespace RaceTimerApp
 
         public TimeAdjuster timeAdjuster = t => t;
 
+        public uint raceCount = 1;
+
         public RaceTimer(int participantCount, int lapCount)
         {
             this.lapCount = lapCount;
@@ -59,6 +61,14 @@ namespace RaceTimerApp
 
             portLineQueue = new Queue<string>(4);
 
+        }
+
+        public static string formatTime(UInt32 timeMs)
+        {
+            uint minutes = timeMs / 1000 / 60;
+            uint seconds = timeMs / 1000 % 60;
+            uint millis = timeMs % 1000;
+            return String.Format("{0}:{1:00}.{2:000}", minutes, seconds, millis);
         }
 
         public void simulateAllSensors()
@@ -79,13 +89,25 @@ namespace RaceTimerApp
         {
             Participant participant = participants[participantIndex];
             bool recorded = false;
-            if (!participant.finished)
+            bool wasFinished = participant.finished;
+            if (!wasFinished)
             {
                 recorded = true;
                 participant.sensorTimes.Add(time);
                 notifyModelUpdated();
             }
             logInfo(String.Format("Participant {0} sensed at time {1}{2}", participantIndex, time, recorded ? "" : " (not recorded!)"));
+
+            if (!wasFinished && participant.finished)
+            {
+                var laps = participant.getLaps();
+                // This participant just finished!
+                logInfo(String.Format("Participant {0} finished!  Name: {1}.  Laps: {2}.  Total: {3}.",
+                    participantIndex, participant.name,
+                    String.Join(", ", from lap in laps select formatTime(lap.totalTimeMsAdjusted)),
+                    formatTime(participant.totalTimeAdjusted.Value)
+                    ));
+            }
         }
 
         private void notifyModelUpdated()
@@ -228,8 +250,10 @@ namespace RaceTimerApp
                 participant.sensorTimes.Clear();
             }
 
-            logInfo("New Race");
+            raceCount += 1;
             notifyModelUpdated();
+
+            logInfo(String.Format("Race {0} started at {1:HH:MM:ss}.", raceCount, DateTime.Now));
         }
 
 
@@ -244,8 +268,13 @@ namespace RaceTimerApp
         {
             if (log != null)
             {
-                log.WriteLine(line);
+                log.WriteLine(logPrefix() + line);
             }
+        }
+
+        string logPrefix()
+        {
+            return "Race " + raceCount + ": ";
         }
 
     }
@@ -255,6 +284,8 @@ namespace RaceTimerApp
         public RaceTimer raceTimer;
 
         public List<UInt32> sensorTimes = new List<UInt32>();
+
+        public String name;
 
         public List<Lap> getLaps()
         {
