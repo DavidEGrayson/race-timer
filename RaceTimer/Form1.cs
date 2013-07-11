@@ -109,8 +109,8 @@ namespace RaceTimerApp
 
             if (raceTimer.participants.All(p => p.finished))
             {
-                UInt32 time0 = raceTimer.participants[0].totalTime().Value;
-                UInt32 time1 = raceTimer.participants[1].totalTime().Value;
+                UInt32 time0 = raceTimer.participants[0].totalTime.Value;
+                UInt32 time1 = raceTimer.participants[1].totalTime.Value;
 
                 if (time0 < time1)
                 {
@@ -137,7 +137,7 @@ namespace RaceTimerApp
 
         void styleUndecided(ParticipantControl control)
         {
-            control.totalTimeBox.BackColor = SystemColors.Control;
+            control.averageTimeBox.BackColor = control.totalTimeBox.BackColor = SystemColors.Control;
         }
 
         void styleLoss(ParticipantControl control)
@@ -147,12 +147,12 @@ namespace RaceTimerApp
 
         void styleWin(ParticipantControl control)
         {
-            control.totalTimeBox.BackColor = Color.PaleGreen;
+            control.averageTimeBox.BackColor = control.totalTimeBox.BackColor = Color.PaleGreen;
         }
 
         void styleTie(ParticipantControl control)
         {
-            control.totalTimeBox.BackColor = Color.Yellow;
+            styleWin(control);
         }
 
         void updateParticipant(int participantIndex, ParticipantControl control)
@@ -172,12 +172,21 @@ namespace RaceTimerApp
                 items.Add(item);
             }
             control.lapList.Items.AddRange(items.ToArray());
+
+            if (participant.finished)
+            {
+                control.averageTimeBox.Text = formatTime(participant.averageLapTime);
+            }
+            else
+            {
+                control.averageTimeBox.Text = "";
+            }
         }
 
         void updateParticipantTickingTimes(int participantIndex, ParticipantControl control)
         {
             Participant participant = raceTimer.getParticipant(participantIndex);
-            UInt32? t = participant.totalTime();
+            UInt32? t = participant.totalTime;
 
             if (t == null)
             {
@@ -210,6 +219,11 @@ namespace RaceTimerApp
         void simulateSensorMenuItem_Click(object sender, EventArgs e)
         {
             raceTimer.simulateSensor(determineParticipantIndex(sender));
+        }
+
+        void simulateAllSensorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            raceTimer.simulateAllSensors();
         }
 
         int determineParticipantIndex(object o)

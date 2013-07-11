@@ -54,6 +54,15 @@ namespace RaceTimerApp
             portLineQueue = new Queue<string>(4);
         }
 
+        public void simulateAllSensors()
+        {
+            UInt32 time = timeEstimate;
+            for (int i = 0; i < participants.Count; i++)
+            {
+                recordTime(i, time);
+            }
+        }
+
         public void simulateSensor(int participantIndex)
         {
             recordTime(participantIndex, timeEstimate);
@@ -260,20 +269,38 @@ namespace RaceTimerApp
             }
         }
 
-        public uint? totalTime()
+        public UInt32? totalTime
         {
-            if (!started) { return null; }
+            get
+            {
+                if (!started) { return null; }
 
-            if (finished)
-            {
-                return sensorTimes[sensorTimes.Count - 1] - sensorTimes[0];
-            }
-            else
-            {
-                return raceTimer.timeEstimate - sensorTimes[0];
+                if (finished)
+                {
+                    return sensorTimes[sensorTimes.Count - 1] - sensorTimes[0];
+                }
+                else
+                {
+                    return raceTimer.timeEstimate - sensorTimes[0];
+                }
             }
         }
 
+
+        public UInt32 averageLapTime
+        {
+            get
+            {
+                if (sensorTimes.Count >= 2)
+                {
+                    return totalTime.Value / ((UInt32)sensorTimes.Count - 1);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
     }
 
     class Lap
