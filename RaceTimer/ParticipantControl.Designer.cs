@@ -30,7 +30,7 @@
         {
             this.nameBox = new System.Windows.Forms.TextBox();
             this.totalTimeBox = new System.Windows.Forms.TextBox();
-            this.lapList = new System.Windows.Forms.ListView();
+            this.lapList = new RaceTimerApp.MyListView();
             this.lapColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.timeColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.totalTimeLabel = new System.Windows.Forms.Label();

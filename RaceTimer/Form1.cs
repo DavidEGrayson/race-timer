@@ -97,6 +97,11 @@ namespace RaceTimerApp
         void timer_Tick(object sender, EventArgs e)
         {
             raceTimer.handleSerialPortLines();
+            updateParticipantTickingTimes();
+        }
+
+        void updateParticipantTickingTimes()
+        {
             updateParticipantTickingTimes(0, participantControl0);
             updateParticipantTickingTimes(1, participantControl1);
         }
@@ -133,6 +138,10 @@ namespace RaceTimerApp
                 styleUndecided(participantControl0);
                 styleUndecided(participantControl1);
             }
+
+            // Do this or else we see a slight flicker for an unfinished lap when we get a sensor
+            // reading from the other participant.
+            updateParticipantTickingTimes();
         }
 
         void styleUndecided(ParticipantControl control)
