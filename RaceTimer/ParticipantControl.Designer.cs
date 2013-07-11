@@ -64,7 +64,8 @@
             this.lapList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.lapColumn,
             this.timeColumn});
-            this.lapList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lapList.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lapList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lapList.Location = new System.Drawing.Point(3, 71);
             this.lapList.Name = "lapList";
             this.lapList.Size = new System.Drawing.Size(450, 278);
