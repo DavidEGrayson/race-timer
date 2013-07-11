@@ -57,7 +57,8 @@
             this.totalTimeBox.Name = "totalTimeBox";
             this.totalTimeBox.ReadOnly = true;
             this.totalTimeBox.Size = new System.Drawing.Size(309, 62);
-            this.totalTimeBox.TabIndex = 2;
+            this.totalTimeBox.TabIndex = 5;
+            this.totalTimeBox.TabStop = false;
             this.totalTimeBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lapList
@@ -74,6 +75,7 @@
             this.lapList.Name = "lapList";
             this.lapList.Size = new System.Drawing.Size(450, 282);
             this.lapList.TabIndex = 1;
+            this.lapList.TabStop = false;
             this.lapList.UseCompatibleStateImageBehavior = false;
             this.lapList.View = System.Windows.Forms.View.Details;
             // 
@@ -96,7 +98,7 @@
             this.totalTimeLabel.Location = new System.Drawing.Point(3, 445);
             this.totalTimeLabel.Name = "totalTimeLabel";
             this.totalTimeLabel.Size = new System.Drawing.Size(89, 37);
-            this.totalTimeLabel.TabIndex = 3;
+            this.totalTimeLabel.TabIndex = 4;
             this.totalTimeLabel.Text = "Total";
             // 
             // averageTimeBox
@@ -108,7 +110,8 @@
             this.averageTimeBox.Name = "averageTimeBox";
             this.averageTimeBox.ReadOnly = true;
             this.averageTimeBox.Size = new System.Drawing.Size(309, 62);
-            this.averageTimeBox.TabIndex = 4;
+            this.averageTimeBox.TabIndex = 3;
+            this.averageTimeBox.TabStop = false;
             this.averageTimeBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // averageLabel
@@ -119,7 +122,7 @@
             this.averageLabel.Location = new System.Drawing.Point(3, 377);
             this.averageLabel.Name = "averageLabel";
             this.averageLabel.Size = new System.Drawing.Size(135, 37);
-            this.averageLabel.TabIndex = 5;
+            this.averageLabel.TabIndex = 2;
             this.averageLabel.Text = "Average";
             // 
             // ParticipantControl
@@ -145,10 +148,10 @@
         public System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.ColumnHeader lapColumn;
         private System.Windows.Forms.ColumnHeader timeColumn;
-        public System.Windows.Forms.ListView lapList;
         private System.Windows.Forms.Label totalTimeLabel;
         public System.Windows.Forms.TextBox averageTimeBox;
         private System.Windows.Forms.Label averageLabel;
+        public MyListView lapList;
 
     }
 }

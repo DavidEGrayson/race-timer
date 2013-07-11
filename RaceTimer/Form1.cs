@@ -24,10 +24,17 @@ namespace RaceTimerApp
             raceTimer = new RaceTimer(participantCount: 2, lapCount: 3);
             raceTimer.modelUpdated += modelUpdated;
 
+            // Account for the Wixel's clock which runs a bit slower than it really should.
+            // (see https://github.com/pololu/wixel-sdk/blob/master/libraries/src/wixel/time.c#L16 )
+            raceTimer.timeAdjuster = t => t * 376 / 375;
+
             simulateSensorAToolStripMenuItem.Tag = 0;
             simulateSensorBToolStripMenuItem.Tag = 1;
 
             timer = new Timer();
+
+            participantControl0.nameBox.TextChanged += delegate(object s, EventArgs e) { raceTimer.participants[0].name = participantControl0.nameBox.Text; };
+            participantControl1.nameBox.TextChanged += delegate(object s, EventArgs e) { raceTimer.participants[1].name = participantControl1.nameBox.Text; };
         }
 
         void Form1_Load(object sender, EventArgs e)
@@ -114,8 +121,8 @@ namespace RaceTimerApp
 
             if (raceTimer.participants.All(p => p.finished))
             {
-                UInt32 time0 = raceTimer.participants[0].totalTime.Value;
-                UInt32 time1 = raceTimer.participants[1].totalTime.Value;
+                UInt32 time0 = raceTimer.participants[0].totalTimeAdjusted.Value;
+                UInt32 time1 = raceTimer.participants[1].totalTimeAdjusted.Value;
 
                 if (time0 < time1)
                 {
@@ -174,7 +181,7 @@ namespace RaceTimerApp
             {
                 Lap lap = laps[i];
 
-                UInt32 time = lap.totalTimeMs;
+                UInt32 time = lap.totalTimeMsAdjusted;
 
                 var item = new ListViewItem(new string[] { (i + 1).ToString(), formatTime(time) });
                 item.Tag = lap;
@@ -184,7 +191,7 @@ namespace RaceTimerApp
 
             if (participant.finished)
             {
-                control.averageTimeBox.Text = formatTime(participant.averageLapTime);
+                control.averageTimeBox.Text = formatTime(participant.averageLapTimeAdjusted);
             }
             else
             {
@@ -195,7 +202,7 @@ namespace RaceTimerApp
         void updateParticipantTickingTimes(int participantIndex, ParticipantControl control)
         {
             Participant participant = raceTimer.getParticipant(participantIndex);
-            UInt32? t = participant.totalTime;
+            UInt32? t = participant.totalTimeAdjusted;
 
             if (t == null)
             {
@@ -219,10 +226,7 @@ namespace RaceTimerApp
 
         string formatTime(UInt32 timeMs)
         {
-            uint minutes = timeMs / 1000 / 60;
-            uint seconds = timeMs / 1000 % 60;
-            uint millis = timeMs % 1000;
-            return String.Format("{0}:{1:00}.{2:000}", minutes, seconds, millis);
+            return RaceTimer.formatTime(timeMs);
         }
 
         void simulateSensorMenuItem_Click(object sender, EventArgs e)
