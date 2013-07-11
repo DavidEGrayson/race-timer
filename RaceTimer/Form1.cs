@@ -228,6 +228,19 @@ namespace RaceTimerApp
             Application.Exit();
         }
 
+        void serialPortBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string portName = (string)serialPortBox.SelectedItem;
+            if (portName == "Not connected")
+            {
+                portName = null;
+            }
+            if (raceTimer.portName != portName)
+            {
+                raceTimer.setPort(portName);
+            }
+        }
+
 
     }
 }

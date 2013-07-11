@@ -58,6 +58,7 @@
             // 
             this.serialPortBox.Name = "serialPortBox";
             this.serialPortBox.Size = new System.Drawing.Size(121, 23);
+            this.serialPortBox.SelectedIndexChanged += new System.EventHandler(this.serialPortBox_SelectedIndexChanged);
             // 
             // startLoggingToolStripMenuItem
             // 

@@ -35,7 +35,7 @@ namespace RaceTimerApp
         Thread readThread;
         bool continueReading;
         Queue<string> portLineQueue;
-        static Regex messageRegex = new Regex(@"\A([ab]),([0-9A-Fa-f]{1,8})\Z");        
+        static Regex messageRegex = new Regex(@"\A([AB]),([0-9A-Fa-f]{1,8})\Z");        
 
         public RaceTimer(int participantCount, int lapCount)
         {
@@ -103,7 +103,7 @@ namespace RaceTimerApp
             }
         }
 
-        public void setPort(string portName)
+        public void setPort(string newPortName)
         {
             if (port != null)
             {
@@ -114,16 +114,18 @@ namespace RaceTimerApp
                 port = null;
             }
 
-            if (portName == null)
+            if (newPortName == null)
             {
                 return;
             }
 
-            port = new SerialPort(portName);
+            port = new SerialPort(newPortName);
             port.ReadTimeout = 200;
             port.WriteTimeout = 200;
             port.Open();
             continueReading = true;
+            readThread = new Thread(readPort);
+            readThread.Start();
             logInfo("Opened serial port " + port.PortName);
         }
 
@@ -163,11 +165,11 @@ namespace RaceTimerApp
                 string participantName = match.Groups[1].Value;
                 string hexTime = match.Groups[2].Value;
                 int participantIndex;
-                if (participantName == "a")
+                if (participantName == "A")
                 {
                     participantIndex = 0;
                 }
-                else if (participantName == "b")
+                else if (participantName == "B")
                 {
                     participantIndex = 1;
                 }
