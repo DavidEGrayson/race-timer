@@ -69,7 +69,7 @@ namespace RaceTimerApp
 
         void timer_Tick(object sender, EventArgs e)
         {
-            raceTimer.handleSerialPortMessages();
+            raceTimer.handleSerialPortLines();
             updateParticipantTickingTimes(0, participantControlA);
             updateParticipantTickingTimes(1, participantControlB);
         }

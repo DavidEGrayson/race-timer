@@ -129,7 +129,7 @@ namespace RaceTimerApp
             }
         }
 
-        public void handleSerialPortMessages()
+        public void handleSerialPortLines()
         {
             while (portLineQueue.Count != 0)
             {
@@ -138,19 +138,19 @@ namespace RaceTimerApp
             }
         }
 
-        void handleSerialPortLine(string line)
+        public void handleSerialPortLine(string line)
         {
             // TODO: log the line to our log file
 
             Match match = messageRegex.Match(line);
-            if (match == null || match.Captures.Count != 2)
+            if (match == null || match.Groups.Count != 3)
             {
                 // Not recognized!
             }
             else
             {
-                string participantName = match.Captures[0].Value;
-                string hexTime = match.Captures[0].Value;
+                string participantName = match.Groups[1].Value;
+                string hexTime = match.Groups[2].Value;
                 int participantIndex;
                 if (participantName == "a")
                 {
