@@ -39,6 +39,32 @@ namespace RaceTimerApp
         void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             updateSerialPorts();
+
+            startLoggingToolStripMenuItem.Enabled = (raceTimer.log == null);
+        }
+
+        void startLoggingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (raceTimer.log != null)
+            {
+                MessageBox.Show("We are already logging.", "Already Logging", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var dialog = new SaveFileDialog();
+            dialog.CheckFileExists = false;
+            dialog.CreatePrompt = false;
+            dialog.AddExtension = true;
+            dialog.DefaultExt = "txt";
+            dialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+
+            dialog.ShowDialog();
+            if (dialog.FileName == "")
+            {
+                return;
+            }
+
+            raceTimer.startLogging(dialog.FileName);
         }
 
         void updateSerialPorts()

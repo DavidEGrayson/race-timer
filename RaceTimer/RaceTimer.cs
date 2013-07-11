@@ -29,6 +29,8 @@ namespace RaceTimerApp
 
         public readonly int lapCount;
 
+        public System.IO.StreamWriter log;
+
         SerialPort port;
         Thread readThread;
         bool continueReading;
@@ -61,6 +63,7 @@ namespace RaceTimerApp
         {
             participants[participantIndex].sensorTimes.Add(time);
             notifyModelUpdated();
+            logInfo(String.Format("Participant {0} sensed at time 0x{1:X}", participantIndex, time));
         }
 
         private void notifyModelUpdated()
@@ -101,6 +104,7 @@ namespace RaceTimerApp
                 continueReading = true;
                 readThread.Join();
                 port.Close();
+                logInfo("Closed serial port " + port.PortName);
                 port = null;
             }
 
@@ -114,6 +118,7 @@ namespace RaceTimerApp
             port.WriteTimeout = 200;
             port.Open();
             continueReading = true;
+            logInfo("Opened serial port " + port.PortName);
         }
 
         void readPort()
@@ -140,7 +145,7 @@ namespace RaceTimerApp
 
         public void handleSerialPortLine(string line)
         {
-            // TODO: log the line to our log file
+            logInfo("From serial: " + line);
 
             Match match = messageRegex.Match(line);
             if (match == null || match.Groups.Count != 3)
@@ -179,8 +184,26 @@ namespace RaceTimerApp
                 participant.sensorTimes.Clear();
             }
 
+            logInfo("New Race");
             notifyModelUpdated();
         }
+
+
+        public void startLogging(string filename)
+        {
+            log = new System.IO.StreamWriter(filename);
+            log.AutoFlush = true;
+            logInfo("Started logging on " + DateTime.Now.ToLongDateString() + " at " + DateTime.Now.ToLongTimeString());
+        }
+
+        public void logInfo(string line)
+        {
+            if (log != null)
+            {
+                log.WriteLine(line);
+            }
+        }
+
     }
 
     class Participant
