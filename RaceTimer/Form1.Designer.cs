@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialPortBox = new System.Windows.Forms.ToolStripComboBox();
             this.startLoggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,6 +129,8 @@
             // 
             // participantControl1
             // 
+            this.participantControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.participantControl1.Location = new System.Drawing.Point(474, 27);
             this.participantControl1.Name = "participantControl1";
             this.participantControl1.Size = new System.Drawing.Size(456, 420);
@@ -137,6 +138,8 @@
             // 
             // participantControl0
             // 
+            this.participantControl0.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.participantControl0.Location = new System.Drawing.Point(12, 27);
             this.participantControl0.Name = "participantControl0";
             this.participantControl0.Size = new System.Drawing.Size(456, 420);
@@ -150,8 +153,9 @@
             this.Controls.Add(this.participantControl1);
             this.Controls.Add(this.participantControl0);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(957, 1200);
+            this.MinimumSize = new System.Drawing.Size(957, 400);
             this.Name = "Form1";
             this.Text = "Race Timer";
             this.Load += new System.EventHandler(this.Form1_Load);
