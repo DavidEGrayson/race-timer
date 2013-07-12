@@ -163,6 +163,8 @@ namespace RaceTimerApp
             }
             else
             {
+                styleUndecided(participantControl0);
+                styleUndecided(participantControl1);
                 styleNotBestLapTime(participantControl0);
                 styleNotBestLapTime(participantControl1);
             }
