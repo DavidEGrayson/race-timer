@@ -30,6 +30,8 @@ namespace RaceTimerApp
 
             simulateSensorAToolStripMenuItem.Tag = 0;
             simulateSensorBToolStripMenuItem.Tag = 1;
+            resetAMenuItem.Tag = 0;
+            resetBMenuItem.Tag = 1;
 
             timer = new Timer();
 
@@ -295,6 +297,12 @@ namespace RaceTimerApp
             {
                 raceTimer.setPort(portName);
             }
+        }
+
+        void resetParticipantMenuItem_Click(object sender, EventArgs e)
+        {
+            int participantIndex = determineParticipantIndex(sender);
+            raceTimer.resetParticipant(participantIndex);
         }
 
 

@@ -277,6 +277,16 @@ namespace RaceTimerApp
             return "Race " + raceCount + ": ";
         }
 
+
+        public void resetParticipant(int participantIndex)
+        {
+            Participant participant = participants[participantIndex];
+
+            participant.sensorTimes.Clear();
+
+            logInfo("Reset participant " + participantIndex);
+            notifyModelUpdated();
+        }
     }
 
     class Participant
